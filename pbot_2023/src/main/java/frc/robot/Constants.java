@@ -31,12 +31,41 @@ public final class Constants {
       public static final int kRightElbowMotorCanId = 11;
       public static final int kLeftElbowMotorCanId = 12; 
       public static final int kElbowMotorCurrentLimit = 15; 
+      public static final double kElbowGearRatio = 225;
+      public static final double kElbowPositionConversionFactor = (2*Math.PI) * kElbowGearRatio;
+      public static final double kElbowEncoderZeroOffset = 41.4360188;
+      public static final boolean kShoulderMotorInverted = true; //base joint encoder inverted
+      public static final boolean kShoulderEncoderInverted = true;
+      //Controller Constants
+      public static final double kElbowMaxVelocity = 5500;
+      public static final double kElbowMaxAcceleration = 4000;
+      public static final double kElbowTolerance = 6;
+      public static final double kElbowFF = 0.00008;
+      public static final double kElbowP = 0.00006;
+      public static final double kElbowI = 0.0;
+      public static final double kElbowD = 0.00012;
     }
     public static final class ShoulderConstants{
       public static final int kRightShoulderMotorCanId = 10;
       public static final int kLeftShoulderMotorCanId = 9;
       public static final int kShoulderMotorCurrentLimit = 40;
-    }
+      public static final double kShoulderGearRatio = 240;
+      public static final double kShoulderPositionConversionFactor = (2*Math.PI) * kShoulderGearRatio;
+      public static final double kShoulderEncoderZeroOffset = 313.4707425;
+      public static final boolean kShoulderMotorInverted = true; //base joint encoder inverted
+      public static final boolean kShoulderEncoderInverted = true;
+
+          //Controller Constants
+      public static final double kShoulderMaxVelocity = 5000;
+      public static final double kShoulderMaxAcceleration = 4000;
+      public static final double kShoulderTolerance = 6;
+      public static final double kShoulderFF = 0.00007;
+      public static final double kShoulderP = 0.00000;
+      public static final double kShoulderI = 0;
+      public static final double kShoulderD = 0.0000;
+
+      
+    } 
 
   }
 }
