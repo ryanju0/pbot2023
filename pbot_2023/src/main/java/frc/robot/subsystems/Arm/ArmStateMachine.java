@@ -50,9 +50,9 @@ public class ArmStateMachine extends SubsystemBase{
     public Command getArmCommand(){
     switch (armState){
         case BACK:
-            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(82),Units.degreesToRadians(135)));
+            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(82),Units.degreesToRadians(135),4));
         case FRONT:
-            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(54),Units.degreesToRadians(-14)));
+            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(54),Units.degreesToRadians(-14),4));
             default:
             return new InstantCommand();
     }

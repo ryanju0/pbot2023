@@ -26,8 +26,8 @@ public class Elbow extends SubsystemBase{
     private Constraints CloseConstraints = new Constraints(36, 36);
     public Elbow(){
         LeftElbowMotor.follow(RightElbowMotor, false);
-        LeftElbowMotor = new CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless);
-        RightElbowMotor = new CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless);
+        LeftElbowMotor = new CANSparkMax(ElbowConstants.kLeftElbowMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
+        RightElbowMotor = new CANSparkMax(ElbowConstants.kRightElbowMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
         RightElbowMotor.setInverted(false);
         RightElbowMotor.setSmartCurrentLimit(ElbowConstants.kElbowMotorCurrentLimit);
         LeftElbowMotor.setSmartCurrentLimit(ElbowConstants.kElbowMotorCurrentLimit);

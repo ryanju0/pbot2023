@@ -24,8 +24,8 @@ public class Shoulder extends SubsystemBase{
     private Constraints CloseConstraints = new Constraints(18, 18);
     public Shoulder(){
         LeftShoulderMotor.follow(RightShoulderMotor, false);
-        LeftShoulderMotor = new CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless);
-        RightShoulderMotor = new CANSparkMax(0, CANSparkMaxLowLevel.MotorType.kBrushless);
+        LeftShoulderMotor = new CANSparkMax(ShoulderConstants.kLeftShoulderMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
+        RightShoulderMotor = new CANSparkMax(ShoulderConstants.kRightShoulderMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
         RightShoulderMotor.setInverted(false);
         RightShoulderMotor.setSmartCurrentLimit(ShoulderConstants.kShoulderMotorCurrentLimit);
         LeftShoulderMotor.setSmartCurrentLimit(ShoulderConstants.kShoulderMotorCurrentLimit);

@@ -2,6 +2,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Constants.LimelightConstants;
 import frc.robot.utils.LimelightHelpers;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableEntry;
@@ -17,6 +18,7 @@ public class Limelight extends SubsystemBase{
     NetworkTableEntry tx = networkTable.getEntry("tx");
     NetworkTableEntry ty = networkTable.getEntry("ty");
     NetworkTableEntry ta = networkTable.getEntry("ta");
+    private double GoalHeight = 0;
 
     public Limelight(){
     double x = tx.getDouble(0.0);
@@ -33,6 +35,17 @@ public class Limelight extends SubsystemBase{
   public double getYOffset() {
 		return LimelightHelpers.getTY(limelightName);
 	}
+  public double getGoalHeight() {
+		return GoalHeight;
+	}
+  public void setGoalHeight(double GoalHeight) {
+		this.GoalHeight = GoalHeight;
+	}
+  public void alignPipeline() {
+		setGoalHeight(LimelightConstants.kMiddleRetroTapeHeight);
+		LimelightHelpers.setPipelineIndex(limelightName, 0);
+	}
+
   @Override
   public void periodic(){
     
