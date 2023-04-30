@@ -17,7 +17,5 @@ public class Arm extends SubsystemBase{
         shoulder.setPos(q2);
         telescope.setTargetPosition(q3);
     }
-    public Command ArmStateMachine() {
-        return null;
-    }
+    
 }
