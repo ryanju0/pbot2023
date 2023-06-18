@@ -17,7 +17,6 @@ import frc.robot.Constants.ArmConstants.ElbowConstants;
 import edu.wpi.first.math.trajectory.TrapezoidProfile.State;
 
 public class Elbow extends SubsystemBase{
-    public CANSparkMax LeftElbowMotor;
     public CANSparkMax RightElbowMotor;
     public AbsoluteEncoder ElbowEncoder;
     public ProfiledPIDController ElbowController;
@@ -25,18 +24,15 @@ public class Elbow extends SubsystemBase{
     private Constraints FarConstraints = new Constraints(12, 9);
     private Constraints CloseConstraints = new Constraints(36, 36);
     public Elbow(){
-        LeftElbowMotor.follow(RightElbowMotor, false);
-        LeftElbowMotor = new CANSparkMax(ElbowConstants.kLeftElbowMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
+      
         RightElbowMotor = new CANSparkMax(ElbowConstants.kRightElbowMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
         RightElbowMotor.setInverted(false);
         RightElbowMotor.setSmartCurrentLimit(ElbowConstants.kElbowMotorCurrentLimit);
-        LeftElbowMotor.setSmartCurrentLimit(ElbowConstants.kElbowMotorCurrentLimit);
+        ElbowEncoder = RightElbowMotor.getAbsoluteEncoder(Type.kDutyCycle);
         ElbowEncoder.setPositionConversionFactor(ElbowConstants.kElbowPositionConversionFactor);
         
-        ElbowEncoder = RightElbowMotor.getAbsoluteEncoder(Type.kDutyCycle);
         RightElbowMotor.setIdleMode(IdleMode.kBrake);
-        LeftElbowMotor.setIdleMode(IdleMode.kBrake);
-        ElbowController = new ProfiledPIDController(0.001, 0,  0, new TrapezoidProfile.Constraints(0.1, 0.1));
+        ElbowController = new ProfiledPIDController(0.0001, 0,  0, new TrapezoidProfile.Constraints(0.01, 0.01));
         elbowFF = new ArmFeedforward(0,0.35,4.38,0.03);
         ElbowEncoder.setZeroOffset(ElbowConstants.kElbowEncoderZeroOffset);
     }

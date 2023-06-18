@@ -68,7 +68,7 @@ public final class Constants {
       
     } 
     public static final class TelescopeConstants{
-      public static final int kTelescopeMotorCanId = 0;
+      public static final int kTelescopeMotorCanId = 100;
       public static final int kTelescopeEncoderZeroOffset = 0; // initial position to zero to
     }
   }

@@ -10,12 +10,12 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 public class Arm extends SubsystemBase{
     private Shoulder shoulder = new Shoulder();
     private Elbow elbow = new Elbow();
-    private Telescope telescope = new Telescope();
+    // private Telescope telescope = new Telescope();
     public Arm(){}
-    public void setArmPos(double q1, double q2, double q3){
+    public void setArmPos(double q1, double q2){
         elbow.setPos(q1);
         shoulder.setPos(q2);
-        telescope.setTargetPosition(q3);
     }
+
     
 }

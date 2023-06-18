@@ -23,18 +23,19 @@ public class Shoulder extends SubsystemBase{
     private Constraints FarConstraints = new Constraints(10, 8);
     private Constraints CloseConstraints = new Constraints(18, 18);
     public Shoulder(){
-        LeftShoulderMotor.follow(RightShoulderMotor, false);
         LeftShoulderMotor = new CANSparkMax(ShoulderConstants.kLeftShoulderMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
         RightShoulderMotor = new CANSparkMax(ShoulderConstants.kRightShoulderMotorCanId, CANSparkMaxLowLevel.MotorType.kBrushless);
+        LeftShoulderMotor.follow(RightShoulderMotor, true);
         RightShoulderMotor.setInverted(false);
         RightShoulderMotor.setSmartCurrentLimit(ShoulderConstants.kShoulderMotorCurrentLimit);
         LeftShoulderMotor.setSmartCurrentLimit(ShoulderConstants.kShoulderMotorCurrentLimit);
+
+        ShoulderEncoder = RightShoulderMotor.getAbsoluteEncoder(Type.kDutyCycle);
         ShoulderEncoder.setPositionConversionFactor(ShoulderConstants.kShoulderPositionConversionFactor);
         
-        ShoulderEncoder = RightShoulderMotor.getAbsoluteEncoder(Type.kDutyCycle);
         RightShoulderMotor.setIdleMode(IdleMode.kBrake);
         LeftShoulderMotor.setIdleMode(IdleMode.kBrake);
-        ShoulderController = new ProfiledPIDController(0.001, 0,  0, new TrapezoidProfile.Constraints(0.5, 0.5));
+        ShoulderController = new ProfiledPIDController(0.0001, 0,  0, new TrapezoidProfile.Constraints(0.05, 0.05));
         shoulderFF = new ArmFeedforward(0,0.47,4.68,0.04);
         ShoulderEncoder.setZeroOffset(ShoulderConstants.kShoulderEncoderZeroOffset);
     }

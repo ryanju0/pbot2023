@@ -10,10 +10,14 @@ import frc.robot.commands.ExampleCommand;
 import frc.robot.subsystems.ExampleSubsystem;
 import frc.robot.subsystems.Arm.Arm;
 import frc.robot.subsystems.Arm.ArmStateMachine;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.button.CommandXboxController;
 import edu.wpi.first.wpilibj2.command.button.Trigger;
 import frc.robot.subsystems.Arm.ArmStateMachine.ArmState;
+import frc.robot.subsystems.Drive.DriveSubsystem;
+import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 
 /**
  * This class is where the bulk of the robot should be declared. Since Command-based is a
@@ -22,8 +26,11 @@ import frc.robot.subsystems.Arm.ArmStateMachine.ArmState;
  * subsystems, commands, and trigger mappings) should be declared here.
  */
 public class RobotContainer {
+
   // The robot's subsystems and commands are defined here...
   private final ExampleSubsystem m_exampleSubsystem = new ExampleSubsystem();
+  private final Arm m_arm = new Arm();
+  private final DriveSubsystem m_drivetrain = new DriveSubsystem();
 
   // Replace with CommandPS4Controller or CommandJoystick if needed
   private final CommandXboxController m_driverController =
@@ -49,13 +56,17 @@ public class RobotContainer {
    */
   private void configureBindings() {
     // Schedule `ExampleCommand` when `exampleCondition` changes to `true`
-    new Trigger(m_exampleSubsystem::exampleCondition)
-        .onTrue(new ExampleCommand(m_exampleSubsystem));
+    // new Trigger(m_exampleSubsystem::exampleCondition)
+        // .onTrue(new ExampleCommand(m_exampleSubsystem));
 
     // Schedule `exampleMethodCommand` when the Xbox controller's B button is pressed,
     // cancelling on release.
-    m_driverController.b().whileTrue(m_ArmStateMachine.setTargetArmStateCommand(ArmState.BACK));
-    m_driverController.a().whileTrue(m_ArmStateMachine.setTargetArmStateCommand(ArmState.FRONT));
+
+
+    //B FOR STOW B FOR STOW
+    m_driverController.b().onTrue(new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(-58),Units.degreesToRadians(126))));
+    //A FOR BACK A FOR BACK
+    m_driverController.a().onTrue(new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(135),Units.degreesToRadians(82))));
   }
 
   /**
@@ -67,4 +78,11 @@ public class RobotContainer {
     // An example command will be run in autonomous
     return Autos.exampleAuto(m_exampleSubsystem);
   }
+  public void setTeleopDefaultStates() {
+		System.out.println("setTeleopDefaultStates()");
+		new SequentialCommandGroup(
+			new InstantCommand(() -> m_drivetrain.resetModules()),
+      new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(-58),Units.degreesToRadians(126)))
+		);
+		}
 }

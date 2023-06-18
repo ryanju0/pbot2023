@@ -22,10 +22,10 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 public class ArmStateMachine extends SubsystemBase{
     private Arm m_arm;
     public enum ArmState {
-        BACK, FRONT
+        BACK, STOW
       }
-    private ArmState armState = ArmState.BACK;
-    public ArmState targetArmState = ArmState.BACK;
+    private ArmState armState;
+    public ArmState targetArmState;
     public ArmStateMachine(Arm m_arm) {
         this.m_arm = m_arm;
     }
@@ -50,9 +50,9 @@ public class ArmStateMachine extends SubsystemBase{
     public Command getArmCommand(){
     switch (armState){
         case BACK:
-            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(82),Units.degreesToRadians(135),4));
-        case FRONT:
-            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(54),Units.degreesToRadians(-14),4));
+            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(135),Units.degreesToRadians(82)));
+        case STOW:
+            return new InstantCommand(() -> m_arm.setArmPos(Units.degreesToRadians(-58),Units.degreesToRadians(126)));
             default:
             return new InstantCommand();
     }
